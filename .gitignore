@@ -1,0 +1,19 @@
+# Rust build output
+/target/
+
+# Local environment files
+.env
+.env.*
+
+# macOS metadata
+.DS_Store
+
+# Editor and IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Temporary files
+*.tmp
+*.log
