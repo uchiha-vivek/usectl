@@ -1,10 +1,11 @@
 use anyhow::{anyhow, Result};
+use serde::Serialize;
 use std::collections::HashMap;
 
 use crate::pressure::{self, PressureStats};
 use crate::utils;
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize)]
 pub struct MemoryStats {
     pub total_kb: u64,
     pub available_kb: u64,

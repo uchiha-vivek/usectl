@@ -3,7 +3,11 @@ use clap::{Parser, Subcommand};
 #[derive(Debug, Parser)]
 #[command(name = "usectl")]
 #[command(about = "A simple Linux USE methodology diagnostics CLI")]
+
 pub struct Cli {
+    #[arg(long)]
+    pub json: bool,
+
     #[command(subcommand)]
     pub command: Commands,
 }

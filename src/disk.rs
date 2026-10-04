@@ -1,15 +1,17 @@
 use anyhow::{anyhow, Result};
 
+use serde::Serialize;
+
 use crate::pressure::{self, PressureStats};
 use crate::utils;
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize)]
 pub struct DiskStats {
     pub devices: Vec<DiskDevice>,
     pub pressure: Option<PressureStats>,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize)]
 pub struct DiskDevice {
     pub name: String,
     pub reads_completed: Option<u64>,

@@ -1,8 +1,9 @@
 use anyhow::{anyhow, Result};
+use serde::Serialize;
 
 use crate::utils;
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize)]
 pub struct NetworkInterface {
     pub name: String,
     pub rx_bytes: u64,

@@ -1,8 +1,9 @@
 use anyhow::Result;
+use serde::Serialize;
 
 use crate::utils;
 
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone, Default, Serialize)]
 pub struct PressureStats {
     pub some_avg10: Option<f64>,
     pub some_avg60: Option<f64>,

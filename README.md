@@ -14,12 +14,15 @@ monitoring systems.
 
 ## Commands
 
+Use from a terminal with `cargo run -- <command>`, or after `cargo install --path .`, run `usectl <command>`.
+
 ```bash
 usectl cpu
 usectl memory
 usectl disk
 usectl network
 usectl analyze
+usectl --json cpu
 ```
 
 ## Development

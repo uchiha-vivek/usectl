@@ -1,10 +1,11 @@
 use anyhow::{anyhow, Result};
+use serde::Serialize;
 use std::thread;
 use std::time::Duration;
 
 use crate::utils;
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize)]
 pub struct CpuStats {
     pub utilization_percent: f64,
     pub load_1: f64,
