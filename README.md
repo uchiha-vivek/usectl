@@ -23,6 +23,9 @@ usectl disk
 usectl network
 usectl analyze
 usectl --json cpu
+usectl --watch 2 cpu
+usectl --watch 5 memory
+usectl --json --watch 2 analyze
 ```
 
 ## Development

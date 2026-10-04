@@ -8,6 +8,9 @@ pub struct Cli {
     #[arg(long)]
     pub json: bool,
 
+    #[arg(long, value_name = "SECONDS")]
+    pub watch: Option<u64>,
+
     #[command(subcommand)]
     pub command: Commands,
 }
