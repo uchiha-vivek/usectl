@@ -6,9 +6,16 @@ use crate::pressure::{self, PressureStats};
 use crate::utils;
 
 #[derive(Debug, Clone, Serialize)]
+pub enum DiskPlatform {
+    Linux,
+    Macos,
+}
+
+#[derive(Debug, Clone, Serialize)]
 pub struct DiskStats {
     pub devices: Vec<DiskDevice>,
     pub pressure: Option<PressureStats>,
+    pub platform: DiskPlatform,
 }
 
 #[derive(Debug, Clone, Serialize)]
@@ -27,7 +34,7 @@ pub fn print_disk() -> Result<()> {
     let stats = read_disk_stats()?;
 
     println!("Disk");
-    println!("Platform : {}", utils::platform_name());
+    println!("Platform: {}", utils::platform_name());
 
     if stats.devices.is_empty() {
         println!("No physical block devices found");
@@ -36,27 +43,38 @@ pub fn print_disk() -> Result<()> {
     for device in &stats.devices {
         println!("Disk: {}", device.name);
         println!();
-        println!(
-            "Reads Completed: {}",
-            format_optional_u64(device.reads_completed)
-        );
-        println!(
-            "Writes Completed: {}",
-            format_optional_u64(device.writes_completed)
-        );
-        println!("Sectors Read: {}", format_optional_u64(device.sectors_read));
-        println!(
-            "Sectors Written: {}",
-            format_optional_u64(device.sectors_written)
-        );
-        println!("I/O Time: {}", format_optional_ms(device.io_time_ms));
 
-        if let Some(transfers) = device.transfers {
-            println!("Transfers: {transfers}");
-        }
-
-        if let Some(mb_transferred) = device.mb_transferred {
-            println!("MB Transferred: {mb_transferred:.2}");
+        match stats.platform {
+            DiskPlatform::Linux => {
+                println!(
+                    "Reads Completed: {}",
+                    format_optional_u64(device.reads_completed)
+                );
+                println!(
+                    "Writes Completed: {}",
+                    format_optional_u64(device.writes_completed)
+                );
+                println!("Sectors Read: {}", format_optional_u64(device.sectors_read));
+                println!(
+                    "Sectors Written: {}",
+                    format_optional_u64(device.sectors_written)
+                );
+                println!("I/O Time: {}", format_optional_ms(device.io_time_ms));
+            }
+            DiskPlatform::Macos => {
+                println!("Source: macOS iostat");
+                println!(
+                    "Transfers Completed: {}",
+                    format_optional_u64(device.transfers)
+                );
+                println!(
+                    "Data Transferred: {}",
+                    format_optional_mb(device.mb_transferred)
+                );
+                println!("Reads Completed: Not available");
+                println!("Writes Completed: Not available");
+                println!("I/O Time: Not available");
+            }
         }
 
         println!();
@@ -77,6 +95,7 @@ pub fn read_disk_stats() -> Result<DiskStats> {
     Ok(DiskStats {
         devices: parse_diskstats(&utils::read_file("/proc/diskstats")?)?,
         pressure: pressure::read_pressure("/proc/pressure/io")?,
+        platform: DiskPlatform::Linux,
     })
 }
 
@@ -86,6 +105,7 @@ fn read_macos_disk_stats() -> Result<DiskStats> {
     Ok(DiskStats {
         devices: parse_macos_iostat(&iostat),
         pressure: None,
+        platform: DiskPlatform::Macos,
     })
 }
 
@@ -152,6 +172,13 @@ fn format_optional_ms(value: Option<u64>) -> String {
     value.map_or_else(
         || "Not available".to_string(),
         |value| format!("{value} ms"),
+    )
+}
+
+fn format_optional_mb(value: Option<f64>) -> String {
+    value.map_or_else(
+        || "Not available".to_string(),
+        |value| format!("{value:.2} MB"),
     )
 }
 

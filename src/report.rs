@@ -17,7 +17,7 @@ pub fn print_report() -> Result<()> {
     println!("USECTL SYSTEM REPORT");
     println!("====================");
     println!();
-    println!("Plaform : {} ", utils::platform_name());
+    println!("Platform: {}", utils::platform_name());
     println!();
 
     println!("CPU");
