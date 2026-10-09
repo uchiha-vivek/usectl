@@ -28,6 +28,19 @@ usectl --watch 5 memory
 usectl --json --watch 2 analyze
 ```
 
+## Warning Thresholds
+
+`usectl analyze` prints simple warnings when these documented thresholds are crossed:
+
+- CPU utilization > 90%
+- 1-minute load average > 8.0
+- Memory utilization > 85%
+- Swap used > 0
+- Memory PSI some avg10 > 5%
+- IO PSI some avg10 > 5%
+- RX/TX packet drops > 0
+- RX/TX network errors > 0
+
 ## Development
 
 ```bash
