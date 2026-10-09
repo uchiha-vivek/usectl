@@ -20,6 +20,7 @@ pub fn print_network() -> Result<()> {
     let interfaces = read_network_stats()?;
 
     println!("Network");
+    println!("Platform : {}", utils::platform_name());
 
     if interfaces.is_empty() {
         println!("No non-loopback network interfaces found");

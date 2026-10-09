@@ -22,6 +22,7 @@ pub fn print_memory() -> Result<()> {
     let stats = read_memory_stats()?;
 
     println!("Memory");
+    println!("Platform : {} ", utils::platform_name());
     println!("Total: {}", utils::format_bytes_from_kb(stats.total_kb));
     println!("Used: {}", utils::format_bytes_from_kb(stats.used_kb));
     println!(

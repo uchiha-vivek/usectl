@@ -27,6 +27,7 @@ pub fn print_disk() -> Result<()> {
     let stats = read_disk_stats()?;
 
     println!("Disk");
+    println!("Platform : {}", utils::platform_name());
 
     if stats.devices.is_empty() {
         println!("No physical block devices found");

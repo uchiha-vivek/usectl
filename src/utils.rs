@@ -10,6 +10,16 @@ pub fn ensure_supported() -> Result<()> {
     Ok(())
 }
 
+pub fn platform_name() -> &'static str {
+    if cfg!(target_os = "linux") {
+        "Linux"
+    } else if cfg!(target_os = "macos") {
+        "macOS"
+    } else {
+        "Unsupported"
+    }
+}
+
 pub fn read_file(path: &str) -> Result<String> {
     fs::read_to_string(path).with_context(|| format!("failed to read {path}"))
 }

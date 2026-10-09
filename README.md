@@ -28,6 +28,10 @@ usectl --watch 5 memory
 usectl --json --watch 2 analyze
 ```
 
+
+**NOTE** : Command output includes a platform label, such as `Platform: macOS` or `Platform: Linux`, so unavailable metrics are easier to understand.
+
+
 ## Warning Thresholds
 
 `usectl analyze` prints simple warnings when these documented thresholds are crossed:

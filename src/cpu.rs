@@ -48,6 +48,7 @@ pub fn print_cpu() -> Result<()> {
     let stats = read_cpu_stats()?;
 
     println!("CPU");
+    println!("Platform : {}", utils::platform_name());
     println!(
         "Utilization: {}",
         utils::format_percent(stats.utilization_percent)
