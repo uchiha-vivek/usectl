@@ -31,4 +31,10 @@ pub enum Commands {
 
     /// Show a combined USE-style system report.
     Analyze,
+
+    /// Explain a metric or system concept.
+    Explain {
+        /// Topic to explain, such as load-average, psi, swap, or page-faults.
+        topic: String,
+    },
 }

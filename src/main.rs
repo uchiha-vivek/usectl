@@ -1,6 +1,7 @@
 mod cli;
 mod cpu;
 mod disk;
+mod explain;
 mod memory;
 mod network;
 mod pressure;
@@ -73,6 +74,13 @@ fn run_command(command: &Commands, json: bool) -> Result<()> {
                 print_json(&report)?;
             } else {
                 report::print_report()?;
+            }
+        }
+        Commands::Explain { topic } => {
+            if json {
+                print_json(&explain::explain_topic(topic)?)?;
+            } else {
+                explain::print_explanation(topic)?;
             }
         }
     }

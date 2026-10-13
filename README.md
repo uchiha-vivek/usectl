@@ -22,7 +22,10 @@ usectl memory
 usectl disk
 usectl network
 usectl analyze
+usectl explain load-average
+usectl explain psi
 usectl --json cpu
+usectl --json explain swap
 usectl --watch 2 cpu
 usectl --watch 5 memory
 usectl --json --watch 2 analyze
@@ -67,6 +70,7 @@ MIT License. See `LICENSE`.
 - `src/cpu.rs` reads and parses CPU stats from Linux `/proc` or macOS `top`/`uptime`.
 - `src/memory.rs` reads and parses memory, swap, and fault stats from Linux `/proc` or macOS `vm_stat`.
 - `src/disk.rs` reads and parses disk counters from Linux `/proc/diskstats` or macOS `iostat`.
+- `src/explain.rs` provides educational explanations for system metrics and USE concepts.
 - `src/network.rs` reads and parses network interface counters from Linux `/proc/net/dev` or macOS `netstat`.
 - `src/pressure.rs` parses Linux PSI files from `/proc/pressure/*`.
 - `src/report.rs` renders the combined USE-style `analyze` report.
